@@ -8,7 +8,6 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use("/HistoriaClinica", RouterHistoria);
-app.use
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
