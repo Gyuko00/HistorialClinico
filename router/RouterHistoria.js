@@ -1,8 +1,15 @@
 const express = require('express');
-const router = express.Router();
-const RouterHistoria = require('../models/HistorialClinico');
+const Historia = require('../models/HistorialClinico');
+const RouterHistoria = express.Router();
 
-router.post("/", (req, res) => {
+
+RouterHistoria.get("/", (req, res) => {
+    Historia.find()
+        .then(datos => res.json({Historias: datos}))
+        .catch(error => res.json({mensaje: error}));
+});
+
+RouterHistoria.post("/", (req, res) => {
     const historia = new HistorialClinico({
         Paciente: {
             nombres: req.body.nombres,
@@ -14,7 +21,6 @@ router.post("/", (req, res) => {
             grupoSanguineo: req.body.grupoSanguineo
         },
         Medico: {
-                    
             nombres: req.body.nombres,
             apellidos: req.body.apellidos,
             tipoDocumento: req.body.tipoDocumento,
