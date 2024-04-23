@@ -1,40 +1,33 @@
-const { request } = require('express');
 const express = require('express');
 const router = express.Router();
-const Historial_clinico = require('../models/Historial_clinico');
+const RouterHistoria = require('../models/HistorialClinico');
 
 router.post("/", (req, res) => {
-    const historia = new Historial_clinico({
-        _id: {
-            _id: req.body._id,
+    const historia = new HistorialClinico({
+        Paciente: {
+            nombres: req.body.nombres,
+            apellidos: req.body.apellidos,
+            tipoDocumento: req.body.tipoDocumento,
+            numeroDocumento: req.body.numeroDocumento,
+            fechaNacimiento: req.body.fechaNacimiento,
+            tipoUsuario: req.body.tipoUsuario,
+            grupoSanguineo: req.body.grupoSanguineo
+        },
+        Medico: {
+                    
+            nombres: req.body.nombres,
+            apellidos: req.body.apellidos,
+            tipoDocumento: req.body.tipoDocumento,
+            numeroDocumento: req.body.numeroDocumento,
+            Especialidades: {
+                nombre: req.body.nombre,
+                codigo: req.body.codigo
+            }
         },
         Citas: {
-            _id: req.body._id,
-            Paciente: {
-                _id: req.body._id,
-                nombres: req.body.nombres,
-                apellidos: req.body.apellidos,
-                tipoDocumento: req.body.tipoDocumento,
-                numeroDocumento: req.body.numeroDocumento,
-                fechaNacimiento: req.body.fechaNacimiento,
-                tipoUsuario: req.body.tipoUsuario,
-                grupoSanguineo: req.body.grupoSanguineo
-            },
+            codigoCitas: req.body.codigoCitas,
             Agendas: {
-                _id: req.body._id,
                 estado: req.body.estado,
-                Medico: {
-                    _id: req.body._id,
-                    nombres: req.body.nombres,
-                    apellidos: req.body.apellidos,
-                    tipoDocumento: req.body.tipoDocumento,
-                    numeroDocumento: req.body.numeroDocumento,
-                    Especialidades: {
-                        _id: req.body._id,
-                        nombre: req.body.nombre,
-                        codigo: req.body.codigo
-                    }
-                }
             }
         },
         codigo: req.body.codigo,
@@ -50,23 +43,18 @@ router.post("/", (req, res) => {
         descripcion: req.body.descripcion,
         diagnostico: req.body.diagnostico,
         OrdenesEspecialistas: {
-            _id: req.body._id,
             descripcion: req.body.descripcion,
             Especialidades: {
-                _id: req.body._id,
                 nombre: req.body.nombre,
                 codigo: req.body.codigo
             }
         },
         OrdenIncapacidades: {
-            _id: req.body._id,
             fechaInicio: req.body.fechaInicio,
             fechaFin: req.body.fechaFin
         },
         OrdenExamenes: {
-            _id: req.body._id,
             Examenes: {
-                _id: req.body._id,
                 nombre: req.body.nombre,
                 codigo: req.body.codigo,
                 tipoExamen: req.body.tipoExamen,
@@ -77,9 +65,7 @@ router.post("/", (req, res) => {
             descripcion: req.body.descripcion,
         },
         OrdenMedicamentos: {
-            _id: req.body._id,
             Medicamentos: {
-                _id: req.body._id,
                 nombre: req.body.nombre,
                 componenteActivo: req.body.componenteActivo,
                 presentacion: req.body.presentacion,
@@ -106,4 +92,4 @@ router.post("/", (req, res) => {
 
 
 
-module.exports = router;
+module.exports = RouterHistoria;
