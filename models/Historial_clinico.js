@@ -1,102 +1,77 @@
-const mongoose = require('mongoose');
-const EsquemaHistoria = mongoose.Schema(
+const mongoose = require('../conexion/conexion');
+const Historia = mongoose.Schema(
     {
-        _id: {
-            type: String,
-            required: true,
-            unique: true
+        Paciente: {
+            nombres: {
+                type: String,
+                required: true
+            },
+            apellidos: {
+                type: String,
+                required: true
+            },
+            tipoDocumento: {
+                type: String,
+                required: true
+            },
+            numeroDocumento: {
+                type: String,
+                unique: true,
+                required: true
+            },
+            fechaNacimiento: {
+                type: String,
+                required: true
+            },
+            tipoUsuario: {
+                type: String,
+                required: true
+            },
+            grupoSanguineo: {
+                type: String,
+                required: true
+            }
+        },
+        Medico: {
+            nombres: {
+                type: String,
+                required: true
+            },
+            apellidos: {
+                type: String,
+                required: true
+            },
+            tipoDocumento: {
+                type: String,
+                required: true
+            },
+            numeroDocumento: {
+                type: String,
+                unique: true,
+                required: true
+            },
+            Especialidades: {
+                nombre: {
+                    type: String,
+                    required: true
+                },
+                codigo: {
+                    type: String,
+                    unique: true,
+                    required: true
+                }
+            }
         },
         Citas: {
-            _id: {
+            codigoCitas: {
                 type: String,
                 required: true,
                 unique: true
             },
-            Paciente: {
-                _id: {
-                    type: String,
-                    required: true,
-                    unique: true
-                },
-                nombres: {
-                    type: String,
-                    required: true
-                },
-                apellidos: {
-                    type: String,
-                    required: true
-                },
-                tipoDocumento: {
-                    type: String,
-                    required: true
-                },
-                numeroDocumento: {
-                    type: String,
-                    unique: true,
-                    required: true
-                },
-                fechaNacimiento: {
-                    type: String,
-                    required: true
-                },
-                tipoUsuario: {
-                    type: String,
-                    required: true
-                },
-                grupoSanguineo: {
-                    type: String,
-                    required: true
-                }
-            },
             Agendas: {
-                _id: {
-                    type: String,
-                    required: true,
-                    unique: true
-                },
                 estado: {
                     type: String,
                     require: true
-                },
-                Medico: {
-                    _id: {
-                        type: String,
-                        required: true,
-                        unique: true
-                    },
-                    nombres: {
-                        type: String,
-                        required: true
-                    },
-                    apellidos: {
-                        type: String,
-                        required: true
-                    },
-                    tipoDocumento: {
-                        type: String,
-                        required: true
-                    },
-                    numeroDocumento: {
-                        type: String,
-                        unique: true,
-                        required: true
-                    },
-                    Especialidades: {
-                        _id: {
-                            type: String,
-                            required: true,
-                            unique: true
-                        },
-                        nombre: {
-                            type: String,
-                            required: true
-                        },
-                        codigo: {
-                            type: String,
-                            unique: true,
-                            required: true
-                        }
-                    }
                 }
             }
         },
@@ -116,7 +91,7 @@ const EsquemaHistoria = mongoose.Schema(
         altura: {
             type: String,
             required: true
-        }, 
+        },
         alergias: {
             type: String,
             required: true
@@ -150,38 +125,26 @@ const EsquemaHistoria = mongoose.Schema(
             required: true
         },
         OrdenesEspecialistas: {
-            _id: {
-                type: String,
-                required: true,
-                unique: true
-            },
+
             descripcion: {
                 type: String,
                 required: true
             },
             Especialidades: {
-                _id: {
-                    type: String,
-                    required: true,
-                    unique: true
-                },
+
                 nombre: {
                     type: String,
                     required: true
                 },
                 codigo: {
-                    type: String, 
+                    type: String,
                     required: true,
                     unique: true
                 }
             }
         },
         OrdenIncapacidades: {
-            _id: {
-                type: String,
-                required: true,
-                unique: true
-            },
+
             fechaInicio: {
                 type: String,
                 required: true
@@ -196,11 +159,7 @@ const EsquemaHistoria = mongoose.Schema(
             }
         },
         OrdenExamenes: {
-            _id: {
-                type: String,
-                required: true,
-                unique: true
-            },
+
             Examenes: {
                 _id: {
                     type: String,
@@ -218,7 +177,7 @@ const EsquemaHistoria = mongoose.Schema(
                 },
                 tipoExamen: {
                     type: String,
-                    required:true
+                    required: true
                 },
                 descripcion: {
                     type: String,
@@ -230,7 +189,7 @@ const EsquemaHistoria = mongoose.Schema(
                 required: true
             },
             resultados: {
-                type: String, 
+                type: String,
                 required: true
             },
             estado: {
@@ -238,22 +197,12 @@ const EsquemaHistoria = mongoose.Schema(
                 required: true
             },
             descripcion: {
-                type: String, 
+                type: String,
                 required: true
             }
         },
         OrdenMedicamentos: {
-            _id: {
-                type: String,
-                required: true,
-                unique: true
-            },
             Medicamentos: {
-                _id: {
-                    type: String,
-                    required: true,
-                    unique: true
-                },
                 nombre: {
                     type: String,
                     requiered: true
@@ -281,7 +230,7 @@ const EsquemaHistoria = mongoose.Schema(
                 required: true
             },
             cantidad: {
-                type: String, 
+                type: String,
                 required: true
             },
             vigencia: {
@@ -295,8 +244,7 @@ const EsquemaHistoria = mongoose.Schema(
         }
     },
     {
-        collection: "Historial_clinico",
+        collection: 'HistorialClinico',
         versionKey: false
-    }
-);
-module.exports = mongoose.model("Historial_clinico", EsquemaHistoria);
+    });
+module.exports = mongoose.model('Historialclinico', Historia);
