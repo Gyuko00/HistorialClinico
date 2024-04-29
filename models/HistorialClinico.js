@@ -2,244 +2,240 @@ const mongoose = require('../conexion/conexion');
 const Historia = mongoose.Schema(
     {
         Paciente: {
-            nombres: {
-                type: String,
-                required: true
+            nombresPaciente: {
+                type: String
+
             },
-            apellidos: {
-                type: String,
-                required: true
+            apellidosPaciente: {
+                type: String
+
             },
-            tipoDocumento: {
-                type: String,
-                required: true
+            tipoDocumentoPaciente: {
+                type: String
+
             },
-            numeroDocumento: {
+            numeroDocumentoPaciente: {
                 type: String,
                 unique: true,
-                required: true
+
             },
-            fechaNacimiento: {
-                type: String,
-                required: true
+            fechaNacimientoPaciente: {
+                type: String
+
             },
-            tipoUsuario: {
-                type: String,
-                required: true
+            tipoUsuarioPaciente: {
+                type: String
+
             },
-            grupoSanguineo: {
-                type: String,
-                required: true
+            grupoSanguineoPaciente: {
+                type: String
+
             }
         },
         Medico: {
-            nombres: {
-                type: String,
-                required: true
+            nombresMedico: {
+                type: String
+
             },
-            apellidos: {
-                type: String,
-                required: true
+            apellidosMedico: {
+                type: String
+
             },
-            tipoDocumento: {
-                type: String,
-                required: true
+            tipoDocumentoMedico: {
+                type: String
+
             },
-            numeroDocumento: {
+            numeroDocumentoMedico: {
                 type: String,
                 unique: true,
-                required: true
+
             },
             Especialidades: {
-                nombre: {
-                    type: String,
-                    required: true
+                nombreEspecialidad: {
+                    type: String
+
                 },
-                codigo: {
+                codigoEspecialidad: {
                     type: String,
                     unique: true,
-                    required: true
+
                 }
             }
         },
         Citas: {
             codigoCitas: {
-                type: String,
-                required: true,
+                type: String
+                ,
                 unique: true
             },
             Agendas: {
-                estado: {
+                estadoAgenda: {
                     type: String,
                     require: true
                 }
             }
         },
-        codigo: {
+        codigoHistoria: {
             type: String,
             unique: true,
-            required: true
+
         },
         edad: {
-            type: String,
-            required: true
+            type: String
+
         },
         peso: {
-            type: String,
-            required: true
+            type: String
+
         },
         altura: {
-            type: String,
-            required: true
+            type: String
+
         },
         alergias: {
-            type: String,
-            required: true
+            type: String
+
         },
         sintomas: {
-            type: String,
-            required: true
+            type: String
+
         },
         antecedentes: {
-            type: String,
-            required: true
+            type: String
+
         },
         presionArterial: {
-            type: String,
-            required: true
+            type: String
+
         },
         temperatura: {
-            type: String,
-            required: true
+            type: String
+
         },
         saturacionOxigeno: {
-            type: String,
-            required: true
+            type: String
+
         },
         descripcion: {
-            type: String,
-            required: true
+            type: String
+
         },
         diagnostico: {
-            type: String,
-            required: true
+            type: String
+
         },
         OrdenesEspecialistas: {
+            descripcionOrdenEspecialista: {
+                type: String
 
-            descripcion: {
-                type: String,
-                required: true
             },
             Especialidades: {
 
-                nombre: {
-                    type: String,
-                    required: true
+                nombreEspecialidadOrden: {
+                    type: String
+
                 },
-                codigo: {
-                    type: String,
-                    required: true,
+                codigoEspecialidadOrden: {
+                    type: String
+                    ,
                     unique: true
                 }
             }
         },
         OrdenIncapacidades: {
 
-            fechaInicio: {
-                type: String,
-                required: true
+            fechaInicioIncapacidad: {
+                type: String
+
             },
-            fechaFin: {
-                type: String,
-                required: true
+            fechaFinIncapacidad: {
+                type: String
+
             },
-            descripcion: {
-                type: String,
-                required: true
+            descripcionIncapacidad: {
+                type: String
+
             }
         },
         OrdenExamenes: {
-
             Examenes: {
-                _id: {
-                    type: String,
-                    required: true,
-                    unique: true
+                nombreExamen: {
+                    type: String
+
                 },
-                nombre: {
+                codigoExamen: {
                     type: String,
-                    required: true
-                },
-                codigo: {
-                    type: String,
-                    required: true,
                     unique: true
                 },
                 tipoExamen: {
-                    type: String,
-                    required: true
+                    type: String
+
                 },
-                descripcion: {
-                    type: String,
-                    required: true
+                descripcionExamen: {
+                    type: String
+
                 }
             },
-            vigencia: {
-                type: String,
-                required: true
+            codigoOrdenExamen: {
+                type: String
+
             },
-            resultados: {
-                type: String,
-                required: true
+            vigenciaOrdenExamen: {
+                type: String
+
             },
-            estado: {
-                type: String,
-                required: true
+            resultadosExamen: {
+                type: String
+
             },
-            descripcion: {
-                type: String,
-                required: true
+            estadoOrdenExamen: {
+                type: String
+
+            },
+            descripcionOrdenExamen: {
+                type: String
+
             }
         },
         OrdenMedicamentos: {
             Medicamentos: {
-                nombre: {
+                nombreMedicamento: {
                     type: String,
                     requiered: true
                 },
-                componenteActivo: {
-                    type: String,
-                    required: true
+                componenteActivoMedicamento: {
+                    type: String
+
                 },
-                presentacion: {
-                    type: String,
-                    required: true
+                presentacionMedicamento: {
+                    type: String
+
                 },
-                descripcion: {
+                descripcionMedicamento: {
                     type: String,
                     reqired: true
                 },
-                codigo: {
-                    type: String,
-                    required: true,
+                codigoMedicamento: {
+                    type: String
+                    ,
                     unique: true
                 }
             },
-            dosis: {
-                type: String,
-                required: true
+            dosisMedicamento: {
+                type: String
+
             },
-            cantidad: {
-                type: String,
-                required: true
+            cantidadMedicamento: {
+                type: String
+
             },
-            vigencia: {
-                type: String,
-                required: true
+            vigenciaOrdenMedicamento: {
+                type: String
+
             },
-            estado: {
-                type: String,
-                required: true
+            estadoOrdenMedicamento: {
+                type: String
+
             }
         }
     },
