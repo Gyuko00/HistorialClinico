@@ -1,107 +1,251 @@
-const express = require('express');
-const Historia = require('../models/HistorialClinico');
-const RouterHistoria = express.Router();
-
-// Obtener Historia Clínica
-RouterHistoria.get("/", (req, res) => {
-    Historia.find()
-        .then(datos => res.json({Historias: datos}))
-        .catch(error => res.json({mensaje: error}));
-});
-
-// Llenar Historia Clínica
-RouterHistoria.post("/", (req, res) => {
-    const historia = new Historia({
-        codigo: req.body.codigoHistoria,
+const mongoose = require('../conexion/conexion');
+const Historia = mongoose.Schema(
+    {
         Paciente: {
-            nombres: req.body.nombresPaciente,
-            apellidos: req.body.apellidosPaciente,
-            tipoDocumento: req.body.tipoDocumentoPaciente,
-            numeroDocumento: req.body.numeroDocumentoPaciente,
-            fechaNacimiento: req.body.fechaNacimientoPaciente,
-            tipoUsuario: req.body.tipoUsuarioPaciente,
-            grupoSanguineo: req.body.grupoSanguineoPaciente
+            nombresPaciente: {
+                type: String
+
+            },
+            apellidosPaciente: {
+                type: String
+
+            },
+            tipoDocumentoPaciente: {
+                type: String
+
+            },
+            numeroDocumentoPaciente: {
+                type: String,
+                unique: true
+
+            },
+            fechaNacimientoPaciente: {
+                type: String
+
+            },
+            tipoUsuarioPaciente: {
+                type: String
+
+            },
+            grupoSanguineoPaciente: {
+                type: String
+
+            }
         },
         Medico: {
-            nombres: req.body.nombresMedico,
-            apellidos: req.body.apellidosMedico,
-            tipoDocumento: req.body.tipoDocumentoMedico,
-            Especialidad:{
-                especialidad: req.body.nombreEspecialidad,
-                codigo: req.body.codigoEspecialidad
+            nombresMedico: {
+                type: String
+
+            },
+            apellidosMedico: {
+                type: String
+
+            },
+            tipoDocumentoMedico: {
+                type: String
+
+            },
+            numeroDocumentoMedico: {
+                type: String,
+                unique: true
+
+            },
+            Especialidades: {
+                nombreEspecialidad: {
+                    type: String
+
+                },
+                codigoEspecialidad: {
+                    type: String,
+                    unique: true
+
+                }
             }
         },
         Citas: {
-            codigo: req.body.codigoCitas,
-            Agenda: {
-                estado: req.body.estadoAgenda
+            codigoCitas: {
+                type: String,
+                unique: true
+            },
+            Agendas: {
+                estadoAgenda: {
+                    type: String,
+                    require: true
+                }
             }
         },
-        edad: req.body.edad,
-        peso: req.body.peso,
-        altura: req.body.altura,
-        alergias: req.body.alergias,
-        sintomas: req.body.sintomas,
-        antecedentes: req.body.antecedentes,
-        presionArterial: req.body.presionArterial,
-        temperatura: req.body.temperatura,
-        saturacionOxigeno: req.body.saturacionOxigeno,
-        descripcion: req.body.descripcion,
-        diagnostico: req.body.diagnostico,
-        OrdenEspecialistas: {
-            descripcion: req.body.descripcionOrdenEspecialista,
+        codigoHistoria: {
+            type: String,
+            unique: true
+
+        },
+        edad: {
+            type: String
+
+        },
+        peso: {
+            type: String
+
+        },
+        altura: {
+            type: String
+
+        },
+        alergias: {
+            type: String
+
+        },
+        sintomas: {
+            type: String
+
+        },
+        antecedentes: {
+            type: String
+
+        },
+        presionArterial: {
+            type: String
+
+        },
+        temperatura: {
+            type: String
+
+        },
+        saturacionOxigeno: {
+            type: String
+
+        },
+        descripcion: {
+            type: String
+
+        },
+        diagnostico: {
+            type: String
+
+        },
+        OrdenesEspecialistas: {
+
+            descripcionOrdenEspecialista: {
+                type: String
+
+            },
             Especialidades: {
-                especialidad: req.body.nombreEspecialidadOrden,
-                codigo: req.body.codigoEspecialidadOrden,
+
+                nombreEspecialidadOrden: {
+                    type: String
+
+                },
+                codigoEspecialidadOrden: {
+                    type: String,
+                    unique: true
+                }
             }
         },
         OrdenIncapacidades: {
-            codigo: req.body.codigoOrdenIncapacidad,
-            fechaInicio: req.body.fechaInicioIncapacidad,
-            fechaFin: req.body.fechaFinIncapacidad,
-            descripcion: req.body.descripcionIncapacidad
-        },
-        OrdenExamen: {
-            codigo: req.body.codigoOrdenExamen,
-            Examenes: {
-                nombre: req.body.nombreExamen,
-                codigo: req.body.codigoExamen,
-                tipoExamen: req.body.tipoExamen,
-                descripcion: req.body.descripcionExamen
+            codigoOrdenIncapacidad: {
+                type: String
+
             },
-            vigencia: req.body.vigenciaOrdenExamen,
-            resultados: req.body.resultadosExamen,
-            estado: req.body.estadoOrdenExamen,
-            descripcion: req.body.descripcionOrdenExamen
+            fechaInicioIncapacidad: {
+                type: String
+
+            },
+            fechaFinIncapacidad: {
+                type: String
+
+            },
+            descripcionIncapacidad: {
+                type: String
+
+            }
+        },
+        OrdenExamenes: {
+            Examenes: {
+                nombreExamen: {
+                    type: String
+
+                },
+                codigoExamen: {
+                    type: String,
+                    unique: true
+                },
+                tipoExamen: {
+                    type: String
+
+                },
+                descripcionExamen: {
+                    type: String
+
+                }
+            },
+            codigoOrdenExamen: {
+                type: String
+
+            },
+            vigenciaOrdenExamen: {
+                type: String
+
+            },
+            resultadosExamen: {
+                type: String
+
+            },
+            estadoOrdenExamen: {
+                type: String
+
+            },
+            descripcionOrdenExamen: {
+                type: String
+
+            }
         },
         OrdenMedicamentos: {
-            codigo: req.body.codigoOrdenMedicamentos,
-            Medicamento: {
-                nombre: req.body.nombreMedicamento,
-                componenteActivo: req.body.componenteActivo,
-                presentacionMedicamento: req.body.presentacionMedicamento,
-                descripcion: req.body.descripcionMedicamento,
-                codigo: req.body.codigoMedicamento
+            codigoOrdenMedicamentos: {
+                type: String
+
             },
-            dosis: req.body.dosisMedicamento,
-            cantidad: req.body.cantidadMedicamento,
-            vigencia: req.body.vigenciaOrdenMedicamento,
-            estado: req.body.estadoOrdenMedicamento
+            Medicamentos: {
+                nombreMedicamento: {
+                    type: String
+
+                },
+                componenteActivo: {
+                    type: String
+
+                },
+                presentacionMedicamento: {
+                    type: String
+
+                },
+                descripcionMedicamento: {
+                    type: String,
+                    reqired: true
+                },
+                codigoMedicamento: {
+                    type: String,
+                    unique: true
+                }
+            },
+            dosisMedicamento: {
+                type: String,
+
+            },
+            cantidadMedicamento: {
+                type: String,
+
+            },
+            vigenciaOrdenMedicamento: {
+                type: String,
+
+            },
+            estadoOrdenMedicamento: {
+                type: String,
+
+            }
         }
-
-
+    },
+    {
+        collection: 'HistorialClinico',
+        versionKey: false
     });
-
-    historia .save()
-        .then(datos => res.json(datos))
-        .catch(error => res.json({mensaje: error}));
-});
-
-// Actualizar 
-RouterHistoria.patch("/", (req, res) => {
-    const historia = new Historia
-})
-
-
-
-module.exports = RouterHistoria;
+module.exports = mongoose.model('Historialclinico', Historia);
