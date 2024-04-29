@@ -1,10 +1,10 @@
 const { request } = require('express');
 const express = require('express');
 const router = express.Router();
-const Historial_clinico = require('../models/Historial_clinico');
+const Historial_clinico = require('../models/HistorialClinico');
 
 router.post("/", (req, res) => {
-    const historia = new Historial_clinico({
+    const historia = new HistorialClinico({
         _id: {
             _id: req.body._id,
         },
