@@ -1,43 +1,42 @@
-const { request } = require('express');
 const express = require('express');
-const router = express.Router();
-const Historial_clinico = require('../models/HistorialClinico');
+const Historia = require('../models/HistorialClinico');
+const RouterHistoria = express.Router();
 
-router.post("/", (req, res) => {
-    const historia = new HistorialClinico({
-        _id: {
-            _id: req.body._id,
+// Obtener Historia Clínica
+RouterHistoria.get("/", (req, res) => {
+    Historia.find()
+        .then(datos => res.json({Historias: datos}))
+        .catch(error => res.json({mensaje: error}));
+});
+
+// Llenar Historia Clínica
+RouterHistoria.post("/", (req, res) => {
+    const historia = new Historia({
+        codigo: req.body.codigoHistoria,
+        Paciente: {
+            nombres: req.body.nombresPaciente,
+            apellidos: req.body.apellidosPaciente,
+            tipoDocumento: req.body.tipoDocumentoPaciente,
+            numeroDocumento: req.body.numeroDocumentoPaciente,
+            fechaNacimiento: req.body.fechaNacimientoPaciente,
+            tipoUsuario: req.body.tipoUsuarioPaciente,
+            grupoSanguineo: req.body.grupoSanguineoPaciente
         },
-        Citas: {
-            _id: req.body._id,
-            Paciente: {
-                _id: req.body._id,
-                nombres: req.body.nombres,
-                apellidos: req.body.apellidos,
-                tipoDocumento: req.body.tipoDocumento,
-                numeroDocumento: req.body.numeroDocumento,
-                fechaNacimiento: req.body.fechaNacimiento,
-                tipoUsuario: req.body.tipoUsuario,
-                grupoSanguineo: req.body.grupoSanguineo
-            },
-            Agendas: {
-                _id: req.body._id,
-                estado: req.body.estado,
-                Medico: {
-                    _id: req.body._id,
-                    nombres: req.body.nombres,
-                    apellidos: req.body.apellidos,
-                    tipoDocumento: req.body.tipoDocumento,
-                    numeroDocumento: req.body.numeroDocumento,
-                    Especialidades: {
-                        _id: req.body._id,
-                        nombre: req.body.nombre,
-                        codigo: req.body.codigo
-                    }
-                }
+        Medico: {
+            nombres: req.body.nombresMedico,
+            apellidos: req.body.apellidosMedico,
+            tipoDocumento: req.body.tipoDocumentoMedico,
+            Especialidad:{
+                especialidad: req.body.nombreEspecialidad,
+                codigo: req.body.codigoEspecialidad
             }
         },
-        codigo: req.body.codigo,
+        Citas: {
+            codigo: req.body.codigoCitas,
+            Agenda: {
+                estado: req.body.estadoAgenda
+            }
+        },
         edad: req.body.edad,
         peso: req.body.peso,
         altura: req.body.altura,
@@ -49,61 +48,60 @@ router.post("/", (req, res) => {
         saturacionOxigeno: req.body.saturacionOxigeno,
         descripcion: req.body.descripcion,
         diagnostico: req.body.diagnostico,
-        OrdenesEspecialistas: {
-            _id: req.body._id,
-            descripcion: req.body.descripcion,
+        OrdenEspecialistas: {
+            descripcion: req.body.descripcionOrdenEspecialista,
             Especialidades: {
-                _id: req.body._id,
-                nombre: req.body.nombre,
-                codigo: req.body.codigo
+                especialidad: req.body.nombreEspecialidadOrden,
+                codigo: req.body.codigoEspecialidadOrden,
             }
         },
         OrdenIncapacidades: {
-            _id: req.body._id,
-            fechaInicio: req.body.fechaInicio,
-            fechaFin: req.body.fechaFin
+            codigo: req.body.codigoOrdenIncapacidad,
+            fechaInicio: req.body.fechaInicioIncapacidad,
+            fechaFin: req.body.fechaFinIncapacidad,
+            descripcion: req.body.descripcionIncapacidad
         },
-        OrdenExamenes: {
-            _id: req.body._id,
+        OrdenExamen: {
+            codigo: req.body.codigoOrdenExamen,
             Examenes: {
-                _id: req.body._id,
-                nombre: req.body.nombre,
-                codigo: req.body.codigo,
+                nombre: req.body.nombreExamen,
+                codigo: req.body.codigoExamen,
                 tipoExamen: req.body.tipoExamen,
-                descripcion: req.body.descripcion
+                descripcion: req.body.descripcionExamen
             },
-            vigengia: req.body.vigencia,
-            resultados: req.body.resultados,
-            descripcion: req.body.descripcion,
+            vigencia: req.body.vigenciaOrdenExamen,
+            resultados: req.body.resultadosExamen,
+            estado: req.body.estadoOrdenExamen,
+            descripcion: req.body.descripcionOrdenExamen
         },
         OrdenMedicamentos: {
-            _id: req.body._id,
-            Medicamentos: {
-                _id: req.body._id,
-                nombre: req.body.nombre,
+            codigo: req.body.codigoOrdenMedicamentos,
+            Medicamento: {
+                nombre: req.body.nombreMedicamento,
                 componenteActivo: req.body.componenteActivo,
-                presentacion: req.body.presentacion,
-                descripcion: req.body.descripcion,
-                codigo: req.body.codigo
+                presentacionMedicamento: req.body.presentacionMedicamento,
+                descripcion: req.body.descripcionMedicamento,
+                codigo: req.body.codigoMedicamento
             },
-            dosis: req.body.dosis,
-            cantidad: req.body.cantidad,
-            vigengia: req.body.vigencia,
-            estado: req.body.vigencia
+            dosis: req.body.dosisMedicamento,
+            cantidad: req.body.cantidadMedicamento,
+            vigencia: req.body.vigenciaOrdenMedicamento,
+            estado: req.body.estadoOrdenMedicamento
         }
+
+
     });
 
-    historia 
-        .save()
-        .then((data) => {
-            res.json(data);
-        })
-        .catch((err) => {
-            res.json({ message: err});
-        });
-
+    historia .save()
+        .then(datos => res.json(datos))
+        .catch(error => res.json({mensaje: error}));
 });
 
+// Actualizar 
+RouterHistoria.patch("/", (req, res) => {
+    const historia = new Historia
+})
 
 
-module.exports = router;
+
+module.exports = RouterHistoria;
