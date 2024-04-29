@@ -16,7 +16,7 @@ const Historia = mongoose.Schema(
             },
             numeroDocumentoPaciente: {
                 type: String,
-                unique: true,
+                unique: true
 
             },
             fechaNacimientoPaciente: {
@@ -47,7 +47,7 @@ const Historia = mongoose.Schema(
             },
             numeroDocumentoMedico: {
                 type: String,
-                unique: true,
+                unique: true
 
             },
             Especialidades: {
@@ -57,15 +57,14 @@ const Historia = mongoose.Schema(
                 },
                 codigoEspecialidad: {
                     type: String,
-                    unique: true,
+                    unique: true
 
                 }
             }
         },
         Citas: {
             codigoCitas: {
-                type: String
-                ,
+                type: String,
                 unique: true
             },
             Agendas: {
@@ -77,7 +76,7 @@ const Historia = mongoose.Schema(
         },
         codigoHistoria: {
             type: String,
-            unique: true,
+            unique: true
 
         },
         edad: {
@@ -125,6 +124,7 @@ const Historia = mongoose.Schema(
 
         },
         OrdenesEspecialistas: {
+
             descripcionOrdenEspecialista: {
                 type: String
 
@@ -136,14 +136,16 @@ const Historia = mongoose.Schema(
 
                 },
                 codigoEspecialidadOrden: {
-                    type: String
-                    ,
+                    type: String,
                     unique: true
                 }
             }
         },
         OrdenIncapacidades: {
+            codigoOrdenIncapacidad: {
+                type: String
 
+            },
             fechaInicioIncapacidad: {
                 type: String
 
@@ -198,12 +200,16 @@ const Historia = mongoose.Schema(
             }
         },
         OrdenMedicamentos: {
+            codigoOrdenMedicamentos: {
+                type: String
+
+            },
             Medicamentos: {
                 nombreMedicamento: {
-                    type: String,
-                    requiered: true
+                    type: String
+
                 },
-                componenteActivoMedicamento: {
+                componenteActivo: {
                     type: String
 
                 },
@@ -216,25 +222,24 @@ const Historia = mongoose.Schema(
                     reqired: true
                 },
                 codigoMedicamento: {
-                    type: String
-                    ,
+                    type: String,
                     unique: true
                 }
             },
             dosisMedicamento: {
-                type: String
+                type: String,
 
             },
             cantidadMedicamento: {
-                type: String
+                type: String,
 
             },
             vigenciaOrdenMedicamento: {
-                type: String
+                type: String,
 
             },
             estadoOrdenMedicamento: {
-                type: String
+                type: String,
 
             }
         }
